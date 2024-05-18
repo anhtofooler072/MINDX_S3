@@ -1,14 +1,17 @@
 import React from "react";
 import Navbar from "./navbar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 export default function Layout() {
-  return (
-    <>
-      <div>
-        <Navbar />
-        <Outlet />
-      </div>
-    </>
-  );
+    const location = useLocation();
+    const navbarClass = "navbar"
+    console.log(navbarClass)
+    return (
+        <>
+            <div>
+                <Navbar className={navbarClass} />
+                <Outlet />
+            </div>
+        </>
+    );
 }
