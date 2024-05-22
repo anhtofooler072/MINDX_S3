@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,14 @@ export default function ConverseAll() {
   }, [dispatch]);
 
   while (status === "loading") {
-    return <ReactLoading type={"spin"} color={"2f383e"} height={50} width={50} />;
+    return (
+      <ReactLoading
+        type={"spin"}
+        color={"2f383e"}
+        height={50}
+        width={50}
+      />
+    );
   }
 
   if (status === "failed") {
@@ -32,7 +39,7 @@ export default function ConverseAll() {
         <div className="converse-all">
           {products.map((product) => (
             <div
-              key={product.id}
+              key={product._id}
               className="product"
               onClick={() => navigate(`/converseall/product/${product._id}`)}>
               <img
