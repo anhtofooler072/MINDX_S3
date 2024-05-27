@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../store/slice";
+import { fetchProducts } from "../../store/producs_slice.js";
 import ReactLoading from "react-loading";
 
 export default function ConverseAll() {
