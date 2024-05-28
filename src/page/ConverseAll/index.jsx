@@ -31,6 +31,7 @@ export default function ConverseAll() {
 
   if (status === "success") {
     return (
+      //! WARNING: This is a bad practice, you should use a better way to handle this 
       <div>
         <h1 className="text-xl font-extrabold text-center mt-20">
           Converse All
@@ -56,6 +57,9 @@ export default function ConverseAll() {
           ))}
         </div>
       </div>
+      /*------------------------------------------------------------------------*/
+      
+      
     );
   }
 }
