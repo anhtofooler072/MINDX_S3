@@ -19,9 +19,15 @@ export default function Product_detail() {
     dispatch(getProductById(id));
   }, [dispatch, id]);
 
-
   const [quantity, setQuantity] = React.useState(1);
-  
+  const [cart, setCart] = React.useState(() => {
+    // check if cart is already in local storage
+    const cart = localStorage.getItem("cart");
+    console.log(cart);
+    return cart ? JSON.parse(cart) : [];
+  });
+  // [ {id: 1, quantity: 2}, {id: 2, quantity: 3} ]
+
   /**========================================================================
    *                           Function definition
    *========================================================================**/
@@ -36,25 +42,34 @@ export default function Product_detail() {
   }
 
   function handleAddToCart() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const product = {
-      id: id,
-      quantity: quantity,
-    };
-    cart.push(product);
+    // chech if product is already in cart
+    const item = cart.find((item) => item.id === id);
+    console.log(item);
+    if (item) {
+      const newCart = cart.map((item) => {
+        if (item.id === id) {
+          return { ...item, quantity: item.quantity + quantity };
+        }
+        return item;
+      });
+      setCart(newCart);
+      setQuantity(1);
+    } else {
+      setCart([...cart, { id:id, quantity:quantity }]);
+      setQuantity(1);
+    }
     localStorage.setItem("cart", JSON.stringify(cart));
-    setQuantity(1);
   }
-
 
   while (status === "loading") {
-    return <ReactLoading
-    type={"spin"}
-    color={"#fc531b"}
-    className="mx-auto mt-10"
-  />;
+    return (
+      <ReactLoading
+        type={"spin"}
+        color={"#fc531b"}
+        className="mx-auto mt-10"
+      />
+    );
   }
-
 
   if (product.images && "img_2" in product.images) {
     console.log(product.images.img_2);
@@ -115,7 +130,9 @@ export default function Product_detail() {
               </div>
             </div>
             <div className="w-full flex flex-row justify-between pt-5 gap-3">
-              <button className="bg-orange-600 text-white font-bold w-1/2 h-12 rounded-md" onClick={handleAddToCart}>
+              <button
+                className="bg-orange-600 text-white font-bold w-1/2 h-12 rounded-md"
+                onClick={handleAddToCart}>
                 Thêm vào giỏ
               </button>
               <button className="bg-green-600 text-white font-bold w-1/2 h-12 rounded-md">
