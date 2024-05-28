@@ -31,13 +31,13 @@ export default function ConverseAll() {
 
   if (status === "success") {
     return (
-      //! WARNING: This is a bad practice, you should use a better way to handle this 
+      //! WARNING: This is a bad practice, you should use a better way to handle this
       <div>
         <h1 className="text-xl font-extrabold text-center mt-20">
           Converse All
         </h1>
         <div className="grid grid-cols-4 gap-8 mx-20 my-10 place-items-center">
-          {products.map((product) => (
+          {Array.isArray(products) && products.map((product) => (
             <div
               key={product._id}
               className="flex flex-col items-center justify-center w-60 h-auto py-10 px-5 border border-gray-300 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition duration-300"
@@ -58,8 +58,6 @@ export default function ConverseAll() {
         </div>
       </div>
       /*------------------------------------------------------------------------*/
-      
-      
     );
   }
 }
