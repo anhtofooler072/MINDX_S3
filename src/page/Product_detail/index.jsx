@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductById } from "../../store/producs_slice.js";
+import ReactLoading from "react-loading";
 // fetch product by id import here
 
 export default function Product_detail() {
@@ -18,7 +19,12 @@ export default function Product_detail() {
     dispatch(getProductById(id));
   }, [dispatch, id]);
 
+
   const [quantity, setQuantity] = React.useState(1);
+  
+  /**========================================================================
+   *                           Function definition
+   *========================================================================**/
   function handleQuantity(type) {
     if (type === "increase") {
       setQuantity((prev) => prev + 1);
@@ -29,10 +35,30 @@ export default function Product_detail() {
     }
   }
 
+  function handleAddToCart() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const product = {
+      id: id,
+      quantity: quantity,
+    };
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setQuantity(1);
+  }
+
+
+  while (status === "loading") {
+    return <ReactLoading
+    type={"spin"}
+    color={"#fc531b"}
+    className="mx-auto mt-10"
+  />;
+  }
+
+
   if (product.images && "img_2" in product.images) {
     console.log(product.images.img_2);
     const imageLink = product.images.img_2;
-    // console log the type of imageLink
     console.log(typeof imageLink);
 
     return (
@@ -89,7 +115,7 @@ export default function Product_detail() {
               </div>
             </div>
             <div className="w-full flex flex-row justify-between pt-5 gap-3">
-              <button className="bg-orange-600 text-white font-bold w-1/2 h-12 rounded-md">
+              <button className="bg-orange-600 text-white font-bold w-1/2 h-12 rounded-md" onClick={handleAddToCart}>
                 Thêm vào giỏ
               </button>
               <button className="bg-green-600 text-white font-bold w-1/2 h-12 rounded-md">
