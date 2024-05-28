@@ -40,7 +40,7 @@ export default function Product_detail() {
         <div
           className="flex flex-col justify-between items-start px-14 py-36 h-96 w-full bg-cover bg-no-repeat object-cover object-center"
           style={{
-            backgroundImage: `url("https://supersports.com.vn/cdn/shop/products/M9160C-1.jpg?v=1700124581&width=2000")`,
+            backgroundImage: `url("https://bizweb.dktcdn.net/100/493/370/themes/940719/assets/main_product_breadcrumb_bg.jpg?1713464283843")`,
           }}>
           <p className="font-bold text-4xl">Chuck Taylor All Star Classic</p>
           <p className="font-light text-gray-500 text-lg italic">
@@ -67,13 +67,13 @@ export default function Product_detail() {
               Giày Thời Trang Unisex Converse Chuck Taylor All Star - Đen
             </h1>
             <p className="text-gray-500 w-full text-2xl pt-3">
-              Giá: 1.500.000đ
+              Giá: {Number(product.cost).toLocaleString()} đ
             </p>
             <div className="w-full font-bold font-sans text-xl mt-5 py-5 flex flex-col gap-2">
               <span>Size</span>
-              <div className="flex flex-row gap-28 mt-4">
+              <div className="flex flex-row justify-item-center gap-28 mt-4">
                 <span>Số lượng</span>
-                <div className="flex flex-row items-center gap-5">
+                <div className="flex flex-row items-center  gap-5 ring-1 ring-gray-700 ring-opacity-15 p-2 rounded-md">
                   <button
                     className="bg-gray-300 w-8 h-8 rounded-md"
                     onClick={() => handleQuantity("decrease")}>
@@ -88,7 +88,7 @@ export default function Product_detail() {
                 </div>
               </div>
             </div>
-            <div className="w-full flex flex-row items-center justify-between pt-5 gap-3">
+            <div className="w-full flex flex-row justify-between pt-5 gap-3">
               <button className="bg-orange-600 text-white font-bold w-1/2 h-12 rounded-md">
                 Thêm vào giỏ
               </button>
