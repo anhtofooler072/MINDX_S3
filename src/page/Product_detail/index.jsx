@@ -10,22 +10,21 @@ export default function Product_detail() {
   // {
   //   /* <p>Product ID: {id}</p> */
   // }
-
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.products);
   const status = useSelector((state) => state.products.status);
+  const [quantity, setQuantity] = React.useState(1);
+  const [cart, setCart] = React.useState(JSON.parse(localStorage.getItem("cart")) || []);
 
   React.useEffect(() => {
     dispatch(getProductById(id));
   }, [dispatch, id]);
 
-  const [quantity, setQuantity] = React.useState(1);
-  const [cart, setCart] = React.useState(() => {
-    // check if cart is already in local storage
-    const cart = localStorage.getItem("cart");
-    console.log(cart);
-    return cart ? JSON.parse(cart) : [];
-  });
+  React.useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  console.log(cart);
   // [ {id: 1, quantity: 2}, {id: 2, quantity: 3} ]
 
   /**========================================================================
@@ -52,13 +51,14 @@ export default function Product_detail() {
         }
         return item;
       });
+      console.log("update quantity of item in cart");
       setCart(newCart);
       setQuantity(1);
     } else {
+      console.log("add new item to cart");
       setCart([...cart, { id:id, quantity:quantity }]);
       setQuantity(1);
     }
-    localStorage.setItem("cart", JSON.stringify(cart));
   }
 
   while (status === "loading") {

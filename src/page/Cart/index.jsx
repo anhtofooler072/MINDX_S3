@@ -94,7 +94,7 @@ export default function Cart() {
             Total Price: {totaPrice.toLocaleString()} đ
           </p>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/4"
+            className="bg-orange-500 hover:bg-orange-700 hover:shadow-md transition duration-200 text-white font-bold py-2 px-4 rounded w-1/4"
             onClick={() => navigate("/checkout")}>
             Checkout
           </button>
