@@ -7,20 +7,11 @@ import ReactLoading from "react-loading";
 export default function Cart() {
   const cart = JSON.parse(localStorage.getItem("cart"));
   const [totaPrice, setTotalPrice] = React.useState(0);
-  console.log(cart);
-  if (cart === null) {
-    return (
-      <div>
-        <h1 className="mt-8 text-center text-4xl font-bold">
-          Your Cart Is Empty
-        </h1>
-      </div>
-    );
-  }
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
   const status = useSelector((state) => state.products.status);
+  /*------------------------------------------------------------------------------------------------*/
 
   React.useEffect(() => {
     dispatch(fetchProducts());
@@ -39,10 +30,22 @@ export default function Cart() {
       console.log(totalPrice);
     }
   }, [products, cart]);
+  /*------------------------------------------------------------------------------------------------*/
 
   while (status === "loading") {
     return (
       <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto mt-10" />
+    );
+  }
+
+  console.log(cart);
+  if (cart === null) {
+    return (
+      <div>
+        <h1 className="mt-8 text-center text-4xl font-bold">
+          Your Cart Is Empty
+        </h1>
+      </div>
     );
   }
 
