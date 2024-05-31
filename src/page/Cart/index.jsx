@@ -11,7 +11,7 @@ export default function Cart() {
   if (cart === null) {
     return (
       <div>
-        <h1 className="font-bold text-4xl text-center mt-8">
+        <h1 className="mt-8 text-center text-4xl font-bold">
           Your Cart Is Empty
         </h1>
       </div>
@@ -42,11 +42,7 @@ export default function Cart() {
 
   while (status === "loading") {
     return (
-      <ReactLoading
-        type={"spin"}
-        color={"#fc531b"}
-        className="mx-auto mt-10"
-      />
+      <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto mt-10" />
     );
   }
 
@@ -55,9 +51,9 @@ export default function Cart() {
   } else if (status === "success") {
     return (
       <>
-        <h1 className="font-bold text-4xl text-center mt-8">Your Cart</h1>
-        <div className="flex flex-col items-end h-auto w-auto mx-36">
-          <div className="flex flex-col items-center justify-center w-full h-auto p-5 mt-8 divide-y-2 border border-gray-300 rounded-lg shadow-md ">
+        <h1 className="mt-8 text-center text-4xl font-bold">Your Cart</h1>
+        <div className="mx-36 flex h-auto w-auto flex-col items-end">
+          <div className="mt-8 flex h-auto w-full flex-col items-center justify-center divide-y-2 rounded-lg border border-gray-300 p-5 shadow-md">
             {Array.isArray(products) &&
               products.map((product) => {
                 const item = cart.find((item) => item.id === product._id);
@@ -65,14 +61,15 @@ export default function Cart() {
                   return (
                     <div
                       key={product._id}
-                      className="flex flex-row justify-items-center w-full h-auto gap-5 justify-between px-3 py-5 cursor-pointer hover:shadow-lg transition duration-300"
+                      className="flex h-auto w-full cursor-pointer flex-row justify-between justify-items-center gap-5 px-3 py-5 transition duration-300 hover:shadow-lg"
                       onClick={() =>
                         navigate(`/converseall/product/${product._id}`)
-                      }>
+                      }
+                    >
                       <img
                         src={product.images.img_2}
                         alt={product.name}
-                        className="w-32 h-32 object-cover object-center rounded-full shadow-md border border-gray-300"
+                        className="h-32 w-32 rounded-full border border-gray-300 object-cover object-center shadow-md"
                       />
                       <div className="flex flex-row gap-7">
                         <p className="translate-y-1/2 font-bold">
@@ -90,12 +87,13 @@ export default function Cart() {
                 }
               })}
           </div>
-          <p className="font-bold text-xl text-gray-500 my-7 mr-5">
+          <p className="my-7 mr-5 text-xl font-bold text-gray-500">
             Total Price: {totaPrice.toLocaleString()} đ
           </p>
           <button
-            className="bg-orange-500 hover:bg-orange-700 hover:shadow-md transition duration-200 text-white font-bold py-2 px-4 rounded w-1/4"
-            onClick={() => navigate("/checkout")}>
+            className="w-1/4 rounded bg-orange-500 px-4 py-2 font-bold text-white transition duration-200 hover:bg-orange-700 hover:shadow-md"
+            onClick={() => navigate("/checkout")}
+          >
             Checkout
           </button>
         </div>

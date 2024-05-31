@@ -14,7 +14,9 @@ export default function Product_detail() {
   const product = useSelector((state) => state.products.products);
   const status = useSelector((state) => state.products.status);
   const [quantity, setQuantity] = React.useState(1);
-  const [cart, setCart] = React.useState(JSON.parse(localStorage.getItem("cart")) || []);
+  const [cart, setCart] = React.useState(
+    JSON.parse(localStorage.getItem("cart")) || [],
+  );
 
   React.useEffect(() => {
     dispatch(getProductById(id));
@@ -56,18 +58,14 @@ export default function Product_detail() {
       setQuantity(1);
     } else {
       console.log("add new item to cart");
-      setCart([...cart, { id:id, quantity:quantity }]);
+      setCart([...cart, { id: id, quantity: quantity }]);
       setQuantity(1);
     }
   }
 
   while (status === "loading") {
     return (
-      <ReactLoading
-        type={"spin"}
-        color={"#fc531b"}
-        className="mx-auto mt-10"
-      />
+      <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto mt-10" />
     );
   }
 
@@ -79,12 +77,13 @@ export default function Product_detail() {
     return (
       <div className="h-screen">
         <div
-          className="flex flex-col justify-between items-start px-14 py-36 h-96 w-full bg-cover bg-no-repeat object-cover object-center"
+          className="flex h-96 w-full flex-col items-start justify-between bg-cover bg-no-repeat object-cover object-center px-14 py-36"
           style={{
             backgroundImage: `url("https://bizweb.dktcdn.net/100/493/370/themes/940719/assets/main_product_breadcrumb_bg.jpg?1713464283843")`,
-          }}>
-          <p className="font-bold text-4xl">Chuck Taylor All Star Classic</p>
-          <p className="font-light text-gray-500 text-lg italic">
+          }}
+        >
+          <p className="text-4xl font-bold">Chuck Taylor All Star Classic</p>
+          <p className="text-lg font-light italic text-gray-500">
             Trang chủ / CONVERSE ALL Chuck Taylor / All Star Classic
           </p>
         </div>
@@ -93,49 +92,52 @@ export default function Product_detail() {
           //todo  TODO: fetch product by id then display here
         }
 
-        <div className="flex flex-row items-center justify-between w-full px-32 py-5 mt-10 mb-96 gap-7">
+        <div className="mb-96 mt-10 flex w-full flex-row items-center justify-between gap-7 px-32 py-5">
           <div className="w-3/5">
             <img
               src={imageLink}
               alt="productimgs"
-              className="h-96 w-full object-cover object-center rounded-lg shadow-md"
+              className="h-96 w-full rounded-lg object-cover object-center shadow-md"
             />
           </div>
 
           {/* product info and order */}
-          <div className="h-full flex flex-col items-start px-3 divide-y-2 divide-gray-400 divide-opacity-25 divide-solid gap-2">
-            <h1 className="font-bold text-3xl leading-9 pb-3">
+          <div className="flex h-full flex-col items-start gap-2 divide-y-2 divide-solid divide-gray-400 divide-opacity-25 px-3">
+            <h1 className="pb-3 text-3xl font-bold leading-9">
               Giày Thời Trang Unisex Converse Chuck Taylor All Star - Đen
             </h1>
-            <p className="text-gray-500 w-full text-2xl pt-3">
+            <p className="w-full pt-3 text-2xl text-gray-500">
               Giá: {Number(product.cost).toLocaleString()} đ
             </p>
-            <div className="w-full font-bold font-sans text-xl mt-5 py-5 flex flex-col gap-2">
+            <div className="mt-5 flex w-full flex-col gap-2 py-5 font-sans text-xl font-bold">
               <span>Size</span>
-              <div className="flex flex-row justify-item-center gap-28 mt-4">
+              <div className="justify-item-center mt-4 flex flex-row gap-28">
                 <span>Số lượng</span>
-                <div className="flex flex-row items-center  gap-5 ring-1 ring-gray-700 ring-opacity-15 p-2 rounded-md">
+                <div className="flex flex-row items-center gap-5 rounded-md p-2 ring-1 ring-gray-700 ring-opacity-15">
                   <button
-                    className="bg-gray-300 w-8 h-8 rounded-md"
-                    onClick={() => handleQuantity("decrease")}>
+                    className="h-8 w-8 rounded-md bg-gray-300"
+                    onClick={() => handleQuantity("decrease")}
+                  >
                     -
                   </button>
                   <span>{quantity}</span>
                   <button
-                    className="bg-gray-300 w-8 h-8 rounded-md"
-                    onClick={() => handleQuantity("increase")}>
+                    className="h-8 w-8 rounded-md bg-gray-300"
+                    onClick={() => handleQuantity("increase")}
+                  >
                     +
                   </button>
                 </div>
               </div>
             </div>
-            <div className="w-full flex flex-row justify-between pt-5 gap-3">
+            <div className="flex w-full flex-row justify-between gap-3 pt-5">
               <button
-                className="bg-orange-600 text-white font-bold w-1/2 h-12 rounded-md"
-                onClick={handleAddToCart}>
+                className="h-12 w-1/2 rounded-md bg-orange-600 font-bold text-white"
+                onClick={handleAddToCart}
+              >
                 Thêm vào giỏ
               </button>
-              <button className="bg-green-600 text-white font-bold w-1/2 h-12 rounded-md">
+              <button className="h-12 w-1/2 rounded-md bg-green-600 font-bold text-white">
                 Mua ngay
               </button>
             </div>
