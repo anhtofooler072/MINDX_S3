@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductById } from "../../store/producs_slice.js";
 import ReactLoading from "react-loading";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // fetch product by id import here
 
 export default function Product_detail() {
@@ -56,10 +58,28 @@ export default function Product_detail() {
       console.log("update quantity of item in cart");
       setCart(newCart);
       setQuantity(1);
+      toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng`, {
+        position: "bottom-left",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        limit: 3,
+        theme: "light",
+      });
     } else {
       console.log("add new item to cart");
       setCart([...cart, { id: id, quantity: quantity }]);
       setQuantity(1);
+      toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng`, {
+        position: "bottom-left",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        limit: 3,
+        theme: "light",
+      });
     }
   }
 
@@ -137,6 +157,7 @@ export default function Product_detail() {
               >
                 Thêm vào giỏ
               </button>
+              <ToastContainer />
               <button className="h-12 w-1/2 rounded-md bg-green-600 font-bold text-white">
                 Mua ngay
               </button>
