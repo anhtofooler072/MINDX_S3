@@ -5,6 +5,7 @@ import { fetchProducts } from "../../store/producs_slice.js";
 import ReactLoading from "react-loading";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoIosCloseCircle } from "react-icons/io";
+import { TbShoppingCartOff } from "react-icons/tb";
 
 export default function Cart() {
   const cart = JSON.parse(localStorage.getItem("cart"));
@@ -55,10 +56,11 @@ export default function Cart() {
   console.log(cart);
   if (cart === null || cart.length === 0) {
     return (
-      <div>
-        <h1 className="mt-8 text-center text-4xl font-bold">
+      <div className="flex flex-col items-center justify-around gap-7 mt-60">
+        <h1 className="mt-8 text-5xl font-light text-gray-300">
           Your Cart Is Empty
         </h1>
+          <TbShoppingCartOff className="w-40 h-40 text-gray-300" />
       </div>
     );
   }
@@ -85,7 +87,7 @@ export default function Cart() {
                   return (
                     <div
                       key={product._id}
-                      className="flex h-auto w-full cursor-pointer flex-row justify-between justify-items-center gap-5 px-3 py-5 transition duration-300 hover:shadow-lg"
+                      className="flex h-auto w-full cursor-pointer flex-row justify-between justify-items-center gap-5 rounded-md px-3 py-5 transition duration-300 hover:border-orange-500 hover:shadow-md"
                     >
                       <img
                         src={product.images.img_2}
@@ -105,7 +107,14 @@ export default function Cart() {
                         <p className="translate-y-1/2">
                           Quantity: {item.quantity}
                         </p>
-                        <button onClick={() => {deleteIndividual(product._id); setTotalPrice(totaPrice - product.cost * item.quantity)}}>
+                        <button
+                          onClick={() => {
+                            deleteIndividual(product._id);
+                            setTotalPrice(
+                              totaPrice - product.cost * item.quantity,
+                            );
+                          }}
+                        >
                           <IoIosCloseCircle className="text-xl text-red-500" />
                         </button>
                       </div>
@@ -118,7 +127,7 @@ export default function Cart() {
             Total Price: {totaPrice.toLocaleString()} đ
           </p>
           <button
-            className="w-1/4 rounded bg-orange-500 px-4 py-2 font-bold text-white transition duration-200 hover:bg-orange-700 hover:shadow-md"
+            className="w-40 rounded bg-orange-500 px-4 py-2 font-bold text-white transition duration-200 hover:bg-orange-700 hover:shadow-md"
             onClick={() => navigate("/checkout")}
           >
             Checkout
