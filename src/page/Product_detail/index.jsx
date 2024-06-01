@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductById } from "../../store/producs_slice.js";
 import ReactLoading from "react-loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,17 +11,15 @@ export default function Product_detail() {
   // {
   //   /* <p>Product ID: {id}</p> */
   // }
-  const dispatch = useDispatch();
-  const product = useSelector((state) => state.products.products);
+  const products = useSelector((state) => state.products.products);
   const status = useSelector((state) => state.products.status);
   const [quantity, setQuantity] = React.useState(1);
   const [cart, setCart] = React.useState(
     JSON.parse(localStorage.getItem("cart")) || [],
   );
 
-  React.useEffect(() => {
-    dispatch(getProductById(id));
-  }, [dispatch, id]);
+  // fetch product by id here
+  const product = products.find((product) => product._id === id) || {};
 
   React.useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
