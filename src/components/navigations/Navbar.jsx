@@ -12,7 +12,7 @@ export default function Navbar({ className }) {
   /**------------------------------------------------------------------------------------------------
    *                                         State declaration
    *------------------------------------------------------------------------------------------------**/
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cart = useSelector((state) => state.cartChecker.cart);
   const navigate = useNavigate();
 
   // search bar
@@ -118,9 +118,11 @@ export default function Navbar({ className }) {
         <NavLink className="text-2xl" to="/login">
           {loginState ? <IoPersonCircleOutline /> : <IoLogInOutline />}
         </NavLink>
+
         <NavLink className="text-2xl" to="/favourites">
           <IoHeartOutline />
         </NavLink>
+
         <NavLink className="text-2xl" to="/cart">
           {/* if products is existed in cart then change the icon */}
           {cart.length !== 0 || !cart ? (

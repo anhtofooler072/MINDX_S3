@@ -2,13 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../store/producs_slice.js";
+import { removeAll, removeById } from "../../store/cartChecker.js";
 import ReactLoading from "react-loading";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoIosCloseCircle } from "react-icons/io";
 import { TbShoppingCartOff } from "react-icons/tb";
 
 export default function Cart() {
-  const cart = JSON.parse(localStorage.getItem("cart"));
+  const cart = useSelector((state) => state.cartChecker.cart);
   const [totaPrice, setTotalPrice] = React.useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,14 +37,22 @@ export default function Cart() {
     }
   }, [products, cart, totaPrice]);
 
-  function handleDeleteAll() {
-    localStorage.removeItem("cart");
-    setTotalPrice(0);
-  }
+  // function handleDeleteAll() {
+  //   localStorage.removeItem("cart");
+  //   setTotalPrice(0);
+  // }
 
-  function deleteIndividual(id) {
-    const newCart = cart.filter((item) => item.id !== id);
-    localStorage.setItem("cart", JSON.stringify(newCart));
+  // function deleteIndividual(id) {
+  //   const newCart = cart.filter((item) => item.id !== id);
+  //   localStorage.setItem("cart", JSON.stringify(newCart));
+  // }
+
+  const handleDelete = (item, type) => {
+    if (type === "individual") {
+      dispatch(removeById(item.id));
+    } else if (type === "all") {
+      dispatch(removeAll());
+    }
   }
   /*------------------------------------------------------------------------------------------------*/
 
@@ -71,7 +80,7 @@ export default function Cart() {
       <div className="mx-36 mb-32 flex h-auto w-auto flex-col items-end">
         <button
           className="flex w-40 flex-row items-center justify-between divide-x-2 divide-white rounded bg-red-500 px-4 py-2 font-bold text-white transition duration-200 hover:bg-orange-700 hover:shadow-md"
-          onClick={handleDeleteAll}
+          onClick={() => handleDelete(null, "all")}
         >
           <span className="text-sm">Delete All</span>
           <RiDeleteBin6Line className="w-1/3 pl-4 text-white" />
@@ -110,8 +119,7 @@ export default function Cart() {
                     <button
                       className="ml-10 mr-4"
                       onClick={() => {
-                        deleteIndividual(product._id);
-                        setTotalPrice(totaPrice - product.cost * item.quantity);
+                        handleDelete(item, "individual");
                       }}
                     >
                       <IoIosCloseCircle className="text-4xl text-gray-200 transition duration-100 hover:text-red-500" />

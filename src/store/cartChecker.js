@@ -26,8 +26,11 @@ const cartChecker = createSlice({
                 state.cart = [...state.cart, action.payload];
             }
         },
-        removeFromCart: (state, action) => {
+        removeById: (state, action) => {
             state.cart = state.cart.filter((item) => item.id !== action.payload);
+        },
+        removeAll: (state) => {
+            state.cart = [];
         },
         updateCart: (state, action) => {
             state.cart = state.cart.map((item) => {
@@ -40,6 +43,6 @@ const cartChecker = createSlice({
     },
 });
 
-export const { addToCart, removeFromCart, updateCart } = cartChecker.actions;
+export const { addToCart, removeById, removeAll, updateCart } = cartChecker.actions;
 
 export default cartChecker.reducer;
