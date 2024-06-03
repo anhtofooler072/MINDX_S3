@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { IoLogInOutline } from "react-icons/io5";
 import { IoHeartOutline } from "react-icons/io5";
 import { IoCartOutline } from "react-icons/io5";
+import { IoPersonCircleOutline } from "react-icons/io5";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { useSelector } from "react-redux";
 import "./styles.css";
@@ -20,8 +21,10 @@ export default function Navbar({ className }) {
 
   // get products from store
   const products = useSelector((state) => state.products.products);
-
   //!  console.log(products); // check if products is fetched, uncomment to check
+
+  // check the login state
+  const loginState = useSelector((state) => state.isLoggedIn.isLoggedIn);
 
   /**------------------------------------------------------------------------------------------------
    *                                         Function definition
@@ -113,7 +116,7 @@ export default function Navbar({ className }) {
 
         {/* login, favourite, cart */}
         <NavLink className="text-2xl" to="/login">
-          <IoLogInOutline />
+          {loginState ? <IoPersonCircleOutline /> : <IoLogInOutline />}
         </NavLink>
         <NavLink className="text-2xl" to="/favourites">
           <IoHeartOutline />
@@ -126,7 +129,6 @@ export default function Navbar({ className }) {
             <IoCartOutline />
           )}
         </NavLink>
-        
       </div>
     </nav>
   );
