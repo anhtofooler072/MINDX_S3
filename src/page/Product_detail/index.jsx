@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { addToCart, updateCart } from "../../store/cartChecker";
+import { fetchProducts } from "../../store/producs_slice.js";
 import ReactLoading from "react-loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,29 +10,36 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function Product_detail() {
   const { id } = useParams();
-  // {
-  //   /* <p>Product ID: {id}</p> */
-  // }
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
   const status = useSelector((state) => state.products.status);
+  const cart = useSelector((state) => state.cartChecker.cart);
   const [quantity, setQuantity] = React.useState(1);
-  const [cart, setCart] = React.useState(
-    JSON.parse(localStorage.getItem("cart")) || [],
-  );
-
-  // fetch product by id here
-  const product = products.find((product) => product._id === id) || {};
-
-  React.useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
   console.log(cart);
-  // [ {id: 1, quantity: 2}, {id: 2, quantity: 3} ]
 
   /**========================================================================
    *                           Function definition
    *========================================================================**/
+  // fetch product by id here
+  const productDetail = () => {
+    if (products.length !== 0) {
+      return products.find((product) => product._id === id);
+    } else {
+      dispatch(fetchProducts());
+      return products.find((product) => product._id === id);
+    }
+  };
+  const product = productDetail();
+  console.log(product);
+
+  const setCart = (newCart, type) => {
+    if (type === "add") {
+    dispatch(addToCart(newCart));
+    } else if (type === "update") {
+      dispatch(updateCart(newCart));
+    }
+  };
+
   function handleQuantity(type) {
     if (type === "increase") {
       setQuantity((prev) => prev + 1);
@@ -44,16 +53,10 @@ export default function Product_detail() {
   function handleAddToCart() {
     // chech if product is already in cart
     const item = cart.find((item) => item.id === id);
-    console.log(item);
     if (item) {
-      const newCart = cart.map((item) => {
-        if (item.id === id) {
-          return { ...item, quantity: item.quantity + quantity };
-        }
-        return item;
-      });
+      setCart({ id: id, quantity: item.quantity + quantity }, "update");
       console.log("update quantity of item in cart");
-      setCart(newCart);
+      // setCart(newCart, "update"); 
       setQuantity(1);
       toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng`, {
         position: "bottom-left",
@@ -66,7 +69,7 @@ export default function Product_detail() {
       });
     } else {
       console.log("add new item to cart");
-      setCart([...cart, { id: id, quantity: quantity }]);
+      setCart({ id: id, quantity: quantity }, "add");
       setQuantity(1);
       toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng`, {
         position: "bottom-left",
@@ -89,7 +92,6 @@ export default function Product_detail() {
   if (product.images && "img_2" in product.images) {
     console.log(product.images.img_2);
     const imageLink = product.images.img_2;
-    console.log(typeof imageLink);
 
     return (
       <div className="h-screen">

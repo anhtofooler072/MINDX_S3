@@ -9,7 +9,12 @@ const cartChecker = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
+            if (state.cart.length === 0) {
+                state.cart = [...state.cart, action.payload];
+                return;
+            }
             const item = state.cart.find((item) => item.id === action.payload.id);
+            console.log(item);
             if (item) {
                 state.cart = state.cart.map((item) => {
                     if (item.id === action.payload.id) {
