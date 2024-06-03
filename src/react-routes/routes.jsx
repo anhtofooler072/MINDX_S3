@@ -7,6 +7,7 @@ import Product_detail from "../page/Product_detail";
 import Notfound from "../page/Notfound";
 import Cart from "../page/Cart";
 import Login from "../page/Login";
+import Checkout from "../page/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
       { path: "converseall", element: <ConverseAll /> }, // ConverseAll route nested within Layout
       { path: "converseall/product/:id", element: <Product_detail /> },
       { path: "login", element: <Login />}, // Product Detail route nested within Layout
-      { path: "cart", element: <Cart/>}, // Product Detail route nested within Layout
+      { path: "cart", element: <Cart/>},
+      { path: "cart/checkout", element: <Checkout/>}, // Product Detail route nested within Layout
       { path: "*", element: <Notfound />}
     ],
   },

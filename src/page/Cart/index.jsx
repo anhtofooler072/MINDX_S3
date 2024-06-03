@@ -134,7 +134,7 @@ export default function Cart() {
         </p>
         <button
           className="w-40 rounded bg-orange-500 px-4 py-2 font-bold text-white transition duration-200 hover:bg-orange-700 hover:shadow-md"
-          onClick={() => navigate("/checkout")}
+          onClick={() => navigate("/cart/checkout")}
         >
           Checkout
         </button>
