@@ -59,7 +59,7 @@ export default function Navbar({ className }) {
         {searchResult.slice(0, displayLimit).map((product) => (
           <div
             key={product._id}
-            className="flex flex-row items-center justify-between gap-2 px-2 pb-3 pt-4"
+            className="flex cursor-pointer flex-row items-center justify-between gap-2 px-2 pb-3 pt-4 transition duration-300 ease-in-out hover:bg-gray-100"
             onClick={() => {
               navigate(`/converseall/product/${product._id}`);
               setInputValue("");
