@@ -111,21 +111,21 @@ export default function Product_detail() {
           //todo  TODO: fetch product by id then display here
         }
 
-        <div className="mb-96 mt-10 flex w-full flex-row items-center justify-between gap-7 px-32 py-5">
-          <div className="w-3/5">
+        <div className="mb-96 mt-10 flex flex-row items-start justify-between gap-7 px-32 py-5">
+          <div className="w-4/5">
             <img
               src={imageLink}
               alt="productimgs"
-              className="h-96 w-full rounded-lg object-cover object-center shadow-md"
+              className="rounded-lg object-cover object-center shadow-md"
             />
           </div>
 
           {/* product info and order */}
-          <div className="flex h-full flex-col items-start gap-2 divide-y-2 divide-solid divide-gray-400 divide-opacity-25 px-3">
-            <h1 className="pb-3 text-3xl font-bold leading-9">
-              Giày Thời Trang Unisex Converse Chuck Taylor All Star - Đen
+          <div className="flex w-3/5 flex-col justify-start items-start gap-2 divide-y-2 divide-solid divide-gray-400 divide-opacity-25 px-3">
+            <h1 className="pb-3 text-2xl font-bold leading-9">
+              {product.name}
             </h1>
-            <p className="w-full pt-3 text-2xl text-gray-500">
+            <p className="w-full pt-3 text-xl font-medium text-gray-500">
               Giá: {Number(product.cost).toLocaleString()} đ
             </p>
             <div className="mt-5 flex w-full flex-col gap-2 py-5 font-sans text-xl font-bold">
