@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { checkLoggedIn as clgin } from "../../store/isLoggedInSlice";
+import CredentialForm from "../../components/Registeration";
 
 export default function Login() {
   const loginState = useSelector((state) => state.isLoggedIn.isLoggedIn);
@@ -11,15 +12,8 @@ export default function Login() {
   };
 
   return (
-    <div className="pt-56 flex flex-col items-center justify-center gap-4">
-      <p>Login</p>
-      <button
-        className="rounded-md bg-slate-600 px-5 py-2 text-xl font-bold text-white transition duration-300 ease-in-out hover:bg-slate-800 hover:shadow-md"
-        onClick={stateChanges}
-      >
-        change
-      </button>
-      <div>{loginState ? <p>Logged in</p> : <p>Logged out</p>}</div>
+    <div className="flex w-full flex-col items-center justify-center gap-4">
+      <CredentialForm />
     </div>
   );
 }

@@ -19,7 +19,7 @@ const router = createBrowserRouter([
       { path: "about", element: <About /> }, // About route nested within Layout
       { path: "converseall", element: <ConverseAll /> }, // ConverseAll route nested within Layout
       { path: "converseall/product/:id", element: <Product_detail /> },
-      { path: "login", element: <Login />}, // Product Detail route nested within Layout
+      { path: "login", element: <Login />}, // Product Detail route nested within Layout // Product Detail route nested within Layout
       { path: "cart", element: <Cart/>},
       { path: "cart/checkout", element: <Checkout/>}, // Product Detail route nested within Layout
       { path: "*", element: <Notfound />}
