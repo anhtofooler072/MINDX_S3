@@ -58,14 +58,14 @@ export default function Cart() {
 
   while (status === "loading") {
     return (
-      <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto mt-10" />
+      <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto pt-48" />
     );
   }
 
   console.log(cart);
   if (cart === null || cart.length === 0) {
     return (
-      <div className="mb-80 mt-60 flex flex-col items-center justify-around gap-7">
+      <div className="mb-80 pt-60 flex flex-col items-center justify-around gap-7">
         <h1 className="mt-8 text-5xl font-light text-gray-300">
           Your Cart Is Empty
         </h1>
@@ -75,8 +75,8 @@ export default function Cart() {
   }
 
   return (
-    <>
-      <h1 className="mb-10 mt-8 text-center text-4xl font-bold">Your Cart</h1>
+    <div className="pt-36">
+      <h1 className="mb-10 text-center text-4xl font-bold">Your Cart</h1>
       <div className="mx-36 mb-32 flex h-auto w-auto flex-col items-end">
         <button
           className="flex w-40 flex-row items-center justify-between divide-x-2 divide-white rounded bg-red-500 px-4 py-2 font-bold text-white transition duration-200 hover:bg-orange-700 hover:shadow-md"
@@ -139,6 +139,6 @@ export default function Cart() {
           Checkout
         </button>
       </div>
-    </>
+    </div>
   );
 }

@@ -85,7 +85,7 @@ export default function Product_detail() {
 
   while (status === "loading") {
     return (
-      <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto mt-10" />
+      <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto pt-48" />
     );
   }
 

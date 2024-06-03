@@ -11,7 +11,7 @@ export default function Login() {
   };
 
   return (
-    <div className="mt-10 flex flex-col items-center justify-center gap-4">
+    <div className="pt-56 flex flex-col items-center justify-center gap-4">
       <p>Login</p>
       <button
         className="rounded-md bg-slate-600 px-5 py-2 text-xl font-bold text-white transition duration-300 ease-in-out hover:bg-slate-800 hover:shadow-md"

@@ -17,7 +17,7 @@ export default function ConverseAll() {
 
   while (status === "loading") {
     return (
-      <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto mt-10" />
+      <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto pt-48" />
     );
   }
 
@@ -28,8 +28,8 @@ export default function ConverseAll() {
   if (status === "success") {
     return (
       //! WARNING: This is a bad practice, you should use a better way to handle this
-      <div>
-        <h1 className="mt-20 text-center text-xl font-extrabold">
+      <div className="pt-28">
+        <h1 className="text-center text-xl font-extrabold">
           Converse All
         </h1>
         <div className="mx-20 my-10 grid grid-cols-4 place-items-center gap-8">
