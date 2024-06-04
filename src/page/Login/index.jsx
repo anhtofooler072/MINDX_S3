@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { checkLoggedIn as clgin } from "../../store/isLoggedInSlice";
-import CredentialForm from "../../components/Registeration";
+import CredentialForm from "../../components/Registeration/CredentialFrom";
 
 export default function Login() {
   const loginState = useSelector((state) => state.isLoggedIn.isLoggedIn);
