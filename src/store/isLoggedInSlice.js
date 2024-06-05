@@ -18,7 +18,7 @@ const isLoggedInSlice = createSlice({
   name: "isLoggedIn",
   initialState: {
     isLoggedIn: false,
-    signUpState: false,
+    signUpState: "",
     username: "",
     email: "",
     phone_number: "",
@@ -33,16 +33,16 @@ const isLoggedInSlice = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.phone_number = action.payload.phone_number;
-      state.signUpState = false;
+      state.signUpState = "success";
       state.isLoggedIn = true;
       console.log("Register successfully!");
     });
     builder.addCase(register.pending, (state) => {
-      state.signUpState = true;
+      state.signUpState = "pending";
       console.log("Register pending!");
     });
     builder.addCase(register.rejected, (state) => {
-      state.signUpState = false;
+      state.signUpState = "failed";
       console.log(state.signUpState);
     });
   },

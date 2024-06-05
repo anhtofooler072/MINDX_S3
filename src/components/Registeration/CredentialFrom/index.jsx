@@ -27,7 +27,7 @@ export default function CredentialForm() {
   } else {
     return (
       <div className="w-screen bg-gray-100">
-        {signUpPending && (
+        {signUpPending === "pending" && (
           <Popsup>
             <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto" />
           </Popsup>

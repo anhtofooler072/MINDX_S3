@@ -1,19 +1,20 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { checkLoggedIn as clgin } from "../../store/isLoggedInSlice";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CredentialForm from "../../components/Registeration/CredentialFrom";
 
 export default function Login() {
   const loginState = useSelector((state) => state.isLoggedIn.isLoggedIn);
-  console.log(loginState);
-  const dispatch = useDispatch();
-  const stateChanges = () => {
-    dispatch(clgin(!loginState));
-  };
 
-  return (
-    <div className="flex w-full flex-col items-center justify-center gap-4">
-      <CredentialForm />
-    </div>
-  );
+  const navigate = useNavigate();
+  if (loginState == false) {
+    return (
+      <div className="flex w-full flex-col items-center justify-center gap-4">
+        <CredentialForm />
+      </div>
+    );
+  } else {
+    navigate("/login/user");
+  }
+
 }

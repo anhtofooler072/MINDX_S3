@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FaEye } from "react-icons/fa6";
 import { TbEyeClosed } from "react-icons/tb";
@@ -10,6 +11,7 @@ export default function SignInForm() {
     password: Yup.string().required("* Required"),
   });
   const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -19,6 +21,7 @@ export default function SignInForm() {
         validationSchema={signInSchema}
         onSubmit={(values) => {
           console.log(values);
+          navigate("/login/user");
         }}
       >
         <Form className="flex flex-col gap-4">
