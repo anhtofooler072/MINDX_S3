@@ -34,7 +34,7 @@ export default function Product_detail() {
 
   const setCart = (newCart, type) => {
     if (type === "add") {
-    dispatch(addToCart(newCart));
+      dispatch(addToCart(newCart));
     } else if (type === "update") {
       dispatch(updateCart(newCart));
     }
@@ -56,7 +56,7 @@ export default function Product_detail() {
     if (item) {
       setCart({ id: id, quantity: item.quantity + quantity }, "update");
       console.log("update quantity of item in cart");
-      // setCart(newCart, "update"); 
+      // setCart(newCart, "update");
       setQuantity(1);
       toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng`, {
         position: "bottom-left",
@@ -121,7 +121,7 @@ export default function Product_detail() {
           </div>
 
           {/* product info and order */}
-          <div className="flex w-3/5 flex-col justify-start items-start gap-2 divide-y-2 divide-solid divide-gray-400 divide-opacity-25 px-3">
+          <div className="flex w-3/5 flex-col items-start justify-start gap-2 divide-y-2 divide-solid divide-gray-400 divide-opacity-25 px-3">
             <h1 className="pb-3 text-2xl font-bold leading-9">
               {product.name}
             </h1>
