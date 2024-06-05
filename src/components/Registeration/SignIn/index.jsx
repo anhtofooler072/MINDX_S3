@@ -12,7 +12,7 @@ export default function SignInForm() {
   const [passwordVisible, setPasswordVisible] = React.useState(false);
 
   return (
-    <div className="pt-56">
+    <div>
       <h1 className="mb-5 text-3xl font-bold">Sign In</h1>
       <Formik
         initialValues={{ email: "", password: "" }}
@@ -21,7 +21,7 @@ export default function SignInForm() {
           console.log(values);
         }}
       >
-        <Form className="flex w-96 flex-col gap-4">
+        <Form className="flex flex-col gap-4">
           <label htmlFor="email" className="font-medium">
             Email
           </label>

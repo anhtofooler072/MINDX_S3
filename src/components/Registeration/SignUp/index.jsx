@@ -1,8 +1,11 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { register } from "../../../store/isLoggedInSlice";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 
 export default function SignUpForm() {
+  // validation schema
   const signUpSchema = Yup.object().shape({
     username: Yup.string().required("* Required"),
     email: Yup.string().email("* Invalid email").required("* Required"),
@@ -18,8 +21,12 @@ export default function SignUpForm() {
       .matches(/^[0-9]+$/, "* Must be only digits")
       .min(10, "* Must be at least 8 digits"),
   });
+
+  // redux
+  const dispatch = useDispatch();
+
   return (
-    <div className="pt-40">
+    <div>
       <h1 className="mb-5 text-3xl font-bold">Sign Up</h1>
       <Formik
         initialValues={{
@@ -31,10 +38,11 @@ export default function SignUpForm() {
         }}
         validationSchema={signUpSchema}
         onSubmit={(values) => {
-          console.log(values);
+          // console.log(values);
+          dispatch(register(values));
         }}
       >
-        <Form className="flex w-96 flex-col gap-4">
+        <Form className="flex flex-col gap-4">
           <label htmlFor="username" className="font-medium">
             Username
           </label>
