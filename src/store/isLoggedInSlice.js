@@ -37,7 +37,7 @@ export const getUserInfo = createAsyncThunk("getUserInfo", async (values) => {
         },
       },
     );
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -48,7 +48,7 @@ const isLoggedInSlice = createSlice({
   name: "isLoggedIn",
   initialState: {
     isLoggedIn: false,
-    signUpState: "",
+    signUpStatus: "",
     username: "",
     email: "",
     phone_number: "",
@@ -58,30 +58,38 @@ const isLoggedInSlice = createSlice({
     checkLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
     },
+    Logout: (state) => {
+      localStorage.removeItem("accessToken");
+      state.isLoggedIn = false;
+      state.username = "";
+      state.email = "";
+      state.phone_number = "";
+      state.accessToken = "";
+    },
   },
   extraReducers: (builder) => {
-    
     // this is for register
     builder.addCase(register.fulfilled, (state, action) => {
       // state.username = action.payload.username;
       // state.email = action.payload.email;
       // state.phone_number = action.payload.phone_number;
-      state.signUpState = "success";
-      state.isLoggedIn = true;
+      state.signUpStatus = "success";
+      // state.isLoggedIn = true;
       console.log("Register successfully!");
     });
     builder.addCase(register.pending, (state) => {
-      state.signUpState = "pending";
+      state.signUpStatus = "pending";
       console.log("Register pending!");
     });
     builder.addCase(register.rejected, (state) => {
-      state.signUpState = "failed";
-      console.log(state.signUpState);
+      state.signUpStatus = "failed";
+      console.log(state.signUpStatus);
     });
 
     // this is for tokenizing
     builder.addCase(tokenize.fulfilled, (state, action) => {
-      // state.isLoggedIn = true;
+      state.isLoggedIn = true;
+      console.log(state.isLoggedIn);
       state.accessToken = action.payload;
       localStorage.setItem("accessToken", state.accessToken);
       console.log(state.accessToken);
@@ -96,10 +104,10 @@ const isLoggedInSlice = createSlice({
 
     // this is for getting user's info
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
-      state.isLoggedIn = true;
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.phone_number = action.payload.phone_number;
+      state.isLoggedIn = true;
       console.log("get user's info successfully!");
     });
     builder.addCase(getUserInfo.pending, () => {
@@ -111,6 +119,6 @@ const isLoggedInSlice = createSlice({
   },
 });
 
-export const { checkLoggedIn } = isLoggedInSlice.actions;
+export const { checkLoggedIn, Logout } = isLoggedInSlice.actions;
 
 export default isLoggedInSlice.reducer;

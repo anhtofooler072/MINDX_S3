@@ -7,7 +7,12 @@ import Popsup from "../../Popsup";
 
 export default function CredentialForm() {
   const [signUpState, setSignUpState] = React.useState(false);
-  const signUpPending = useSelector((state) => state.isLoggedIn.signUpState);
+  const signUpStatus = useSelector((state) => state.isLoggedIn.signUpStatus);
+  React.useEffect(() => {
+    if (signUpStatus === "success") {
+      setSignUpState(false);
+    }
+  }, [signUpStatus]);
 
   if (signUpState === false) {
     return (
@@ -27,7 +32,7 @@ export default function CredentialForm() {
   } else {
     return (
       <div className="w-screen bg-gray-100">
-        {signUpPending === "pending" && (
+        {signUpStatus === "pending" && (
           <Popsup>
             <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto" />
           </Popsup>
