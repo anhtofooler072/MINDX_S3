@@ -1,5 +1,5 @@
 import React from "react";
-import { Logout as RdLgout} from "../../store/isLoggedInSlice";
+import { Logout as RdLgout } from "../../store/isLoggedInSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -30,19 +30,23 @@ export default function UserPage() {
   }, [loginState, navigate]);
 
   return (
-    <div className="pt-56">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-2xl font-bold">User Page</h1>
-        <div className="flex flex-col items-center gap-2">
-          <p>Username: {username}</p>
+    <div className="w-screen pt-32">
+      <div className="ml-10 flex w-fit flex-col items-start justify-center gap-4 rounded-lg border-2 border-gray-300 border-opacity-20 bg-gray-100 p-5 shadow-md">
+        <img
+          src="https://picsum.photos/200"
+          alt="avatar"
+          className="rounded-full border-4 border-gray-500 border-opacity-20"
+        />
+        <h1 className="text-left text-2xl font-bold text-gray-600">{username}</h1>
+        <div className="flex flex-col items-start gap-2 text-gray-500">
           <p>Email: {email}</p>
           <p>Phone number: {phone_number}</p>
         </div>
         <button
           onClick={logOut}
-          className="mt-4 rounded bg-red-500 p-2 text-white"
+          className="mt-4 w-full rounded-lg font-bold bg-gray-500 py-2 px-3 text-white hover:bg-gray-700 transition duration-300 ease-in-out hover:shadow-md"
         >
-          log out
+          Log out
         </button>
       </div>
     </div>
