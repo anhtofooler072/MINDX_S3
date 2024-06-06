@@ -5,6 +5,7 @@ import { FaEye } from "react-icons/fa6";
 import { TbEyeClosed } from "react-icons/tb";
 import { useDispatch } from "react-redux";
 import { tokenize } from "../../../store/isLoggedInSlice";
+import { getUserInfo } from "../../../store/isLoggedInSlice";
 import * as Yup from "yup";
 
 export default function SignInForm() {
@@ -13,8 +14,14 @@ export default function SignInForm() {
     email: Yup.string().email("* Invalid email").required("* Required"),
     password: Yup.string().required("* Required"),
   });
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      dispatch(getUserInfo(token));
+    }
+  }, [dispatch]);
 
   return (
     <div>
@@ -23,8 +30,6 @@ export default function SignInForm() {
         initialValues={{ email: "", password: "" }}
         validationSchema={signInSchema}
         onSubmit={(values) => {
-          // console.log(values);
-          // navigate("/login/user");
           dispatch(tokenize(values));
         }}
       >
