@@ -20,6 +20,7 @@ export default function CredentialForm() {
       <div className="w-screen bg-gray-100">
         {signInStatus === "pending" && (
           <Popsup>
+            <p className="text-xl font-light mb-2">Signing you in</p>
             <ReactLoading type={"spin"} color={"#fc531b"} className="mx-auto" />
           </Popsup>
         )}
