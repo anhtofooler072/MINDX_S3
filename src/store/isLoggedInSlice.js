@@ -49,6 +49,7 @@ const isLoggedInSlice = createSlice({
   initialState: {
     isLoggedIn: false,
     signUpStatus: "",
+    signInStatus: "",
     username: "",
     email: "",
     phone_number: "",
@@ -95,10 +96,12 @@ const isLoggedInSlice = createSlice({
       console.log(state.accessToken);
       console.log("tokenize successfully!");
     });
-    builder.addCase(tokenize.pending, () => {
+    builder.addCase(tokenize.pending, (state) => {
+      state.signInStatus = "pending";
       console.log("tokenize pending!");
     });
-    builder.addCase(tokenize.rejected, () => {
+    builder.addCase(tokenize.rejected, (state) => {
+      state.signInStatus = "failed";
       console.log("tokenize failed!");
     });
 
@@ -108,12 +111,14 @@ const isLoggedInSlice = createSlice({
       state.email = action.payload.email;
       state.phone_number = action.payload.phone_number;
       state.isLoggedIn = true;
+      state.signInStatus = "success";
       console.log("get user's info successfully!");
     });
-    builder.addCase(getUserInfo.pending, () => {
+    builder.addCase(getUserInfo.pending, (state) => {
       console.log("get user's info pending!");
     });
-    builder.addCase(getUserInfo.rejected, () => {
+    builder.addCase(getUserInfo.rejected, (state) => {
+      state.signInStatus = "failed";
       console.log("get user's info failed!");
     });
   },
