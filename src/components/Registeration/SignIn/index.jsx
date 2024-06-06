@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FaEye } from "react-icons/fa6";
 import { TbEyeClosed } from "react-icons/tb";
+import { useDispatch } from "react-redux";
+import { tokenize } from "../../../store/isLoggedInSlice";
 import * as Yup from "yup";
 
 export default function SignInForm() {
+  const [passwordVisible, setPasswordVisible] = React.useState(false);
   const signInSchema = Yup.object().shape({
     email: Yup.string().email("* Invalid email").required("* Required"),
     password: Yup.string().required("* Required"),
   });
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -20,8 +23,9 @@ export default function SignInForm() {
         initialValues={{ email: "", password: "" }}
         validationSchema={signInSchema}
         onSubmit={(values) => {
-          console.log(values);
-          navigate("/login/user");
+          // console.log(values);
+          // navigate("/login/user");
+          dispatch(tokenize(values));
         }}
       >
         <Form className="flex flex-col gap-4">
@@ -51,12 +55,12 @@ export default function SignInForm() {
             />
             {passwordVisible ? (
               <FaEye
-                onClick={() => setPasswordVisible(prev => !prev)}
+                onClick={() => setPasswordVisible((prev) => !prev)}
                 className="cursor-pointer"
               />
             ) : (
               <TbEyeClosed
-                onClick={() => setPasswordVisible(prev => !prev)}
+                onClick={() => setPasswordVisible((prev) => !prev)}
                 className="cursor-pointer"
               />
             )}
